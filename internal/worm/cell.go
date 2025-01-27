@@ -1,4 +1,6 @@
-package main
+package worm
+
+import "worm_go/internal/apple"
 
 type wormCell struct {
 	height       int
@@ -8,32 +10,32 @@ type wormCell struct {
 }
 
 // directions
-const nullDirection = 0
-const directionUp = 1
-const directionDown = 2
-const directionLeft = 3
-const directionRight = 4
+const NullDirection = 0
+const DirectionUp = 1
+const DirectionDown = 2
+const DirectionLeft = 3
+const DirectionRight = 4
 
 func (cell *wormCell) step(headDirection int) {
 	switch cell.direction {
-	case directionUp:
+	case DirectionUp:
 		cell.stepUp()
-	case directionDown:
+	case DirectionDown:
 		cell.stepDown()
-	case directionLeft:
+	case DirectionLeft:
 		cell.stepLeft()
-	case directionRight:
+	case DirectionRight:
 		cell.stepRight()
 	}
 
-	if headDirection != nullDirection {
+	if headDirection != NullDirection {
 		cell.oldDirection = cell.direction
 		cell.direction = headDirection
 	}
 }
 
-func (cell *wormCell) onApple(apple appleCell) bool {
-	return cell.height == apple.height && cell.length == apple.length
+func (cell *wormCell) onApple(apple apple.Apple) bool {
+	return cell.height == apple.Height && cell.length == apple.Length
 }
 
 func (cell *wormCell) stepUp() {
